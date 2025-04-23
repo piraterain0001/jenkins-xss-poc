@@ -13,7 +13,7 @@
             userName: "test1",
             nickName: "test1",
             password: "12345678",
-            roleIds: [5fff414bb37f430ebff81252703dc7dc],
+            roleIds: ["5fff414bb37f430ebff81252703dc7dc"],
             remark: "",
             status: "1"
           })
